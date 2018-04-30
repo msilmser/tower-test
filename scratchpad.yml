@@ -1,0 +1,23 @@
+---
+- name: Create a List
+  hosts: localhost
+  gather_facts: true
+
+  tasks:
+    - name: Initiate My List
+      set_fact: 
+        my_list: "{{ my_list | default([]) }}"
+
+    - name: Set List Fact
+      set_fact:
+        my_list: "{{ my_list }} + ['{{ item }}']"
+      with_items:
+        - value1
+        - value2
+        - value3
+        - value4
+
+    - name: Print
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ my_list }}"
