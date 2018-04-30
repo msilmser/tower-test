@@ -21,3 +21,4 @@
       debug:
         msg: "{{ item }}"
       with_items: "{{ my_list }}"
+      no_log: true
