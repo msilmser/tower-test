@@ -1,3 +1,4 @@
+[hosts]
 chvlkubmst01d.uschecomrnd.net ansible_ssh_host=10.108.7.50
 chvlkubmst02d.uschecomrnd.net ansible_ssh_host=10.108.7.51
 chvlkubmst03d.uschecomrnd.net ansible_ssh_host=10.108.7.52
