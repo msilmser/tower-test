@@ -1,0 +1,29 @@
+chvlkubmst01d.uschecomrnd.net ansible_ssh_host=10.108.7.50
+chvlkubmst02d.uschecomrnd.net ansible_ssh_host=10.108.7.51
+chvlkubmst03d.uschecomrnd.net ansible_ssh_host=10.108.7.52
+chvlkubmin01d.uschecomrnd.net ansible_ssh_host=10.108.7.53
+chvlkubmin02d.uschecomrnd.net ansible_ssh_host=10.108.7.54
+chvlkubmin03d.uschecomrnd.net ansible_ssh_host=10.108.7.55
+chvlkubmin04d.uschecomrnd.net ansible_ssh_host=10.108.7.56
+chvlkubmin05d.uschecomrnd.net ansible_ssh_host=10.108.7.57
+
+[kube-master]
+chvlkubmst01d.uschecomrnd.net
+chvlkubmst02d.uschecomrnd.net
+chvlkubmst03d.uschecomrnd.net
+
+[etcd]
+chvlkubmst01d.uschecomrnd.net
+chvlkubmst02d.uschecomrnd.net
+chvlkubmst03d.uschecomrnd.net
+
+[kube-node]
+chvlkubmin01d.uschecomrnd.net
+chvlkubmin02d.uschecomrnd.net
+chvlkubmin03d.uschecomrnd.net
+chvlkubmin04d.uschecomrnd.net
+chvlkubmin05d.uschecomrnd.net
+
+[k8s-cluster:children]
+kube-node
+kube-master
