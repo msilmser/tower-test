@@ -1,6 +1,7 @@
 - name: Hello World Sample
   hosts: all
-  roles: ntp
+  roles:
+    - ntp
   tasks:
     - name: Hello Message
       debug:
