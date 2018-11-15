@@ -1,0 +1,62 @@
+- name: Hello World Sample
+#  hosts: dss:&dc2
+  hosts: localhost
+#  gather_facts: no
+  ignore_unreachable: yes
+  gather_timeout: 1
+  
+  vars:
+    epic: true
+    ansible_connection: local
+  tasks:
+    - name: Hello Message
+      debug:
+        msg: "Hello World!"
+      ignore_errors: true
+      when: epic
+ 
+#    - name: fail
+#      fail:
+   
+    - name: add host to inventory
+      add_host:
+        hostname: "10.42.0.9"
+        ansible_user: vagrant
+         
+    - name: debug other stuff
+      debug:
+        var:
+          playbook_dir
+
+    - name: debug other stuff
+      debug:
+        var:
+          tower_user_id
+
+    - name: debug other stuff
+      debug:
+        var:
+          tower_user_email
+
+    - name: set those stats
+      set_stats:
+        data:
+          the_answer: 42
+        aggregate: no
+
+- name: ping 10
+  hosts: 10.42.0.10
+  ignore_unreachable: true
+  tasks:
+    - name: ping 10
+      ping:
+
+- name: debug stuff for 0 dot 9
+  hosts: 10.42.0.9
+  vars:
+    ansible_user: vagrant
+    private_key_file: /root/.ssh/nodes
+  tasks:
+    - name:
+      debug:
+        msg: "Click me!"
