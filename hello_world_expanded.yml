@@ -43,6 +43,11 @@
         data:
           the_answer: 42
         aggregate: no
+        
+    - name: debug delete on update
+      debug:
+        var:
+          scm_delete_on_update
 
 - name: ping 10
   hosts: 10.42.0.10
