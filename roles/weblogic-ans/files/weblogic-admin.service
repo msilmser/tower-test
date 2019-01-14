@@ -1,0 +1,17 @@
+[Install]
+WantedBy=multi-user.target
+
+[Unit]
+Description=The service will restart tomcat related administration services automatically
+After=network.target multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/users/mwe/cgscripts/adminstart.sh
+ExecStop=/users/mwe/cgscripts/adminstop.sh
+Restart=on-abort
+User=mwadmin
+Group=mwgrp
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+---
+# tasks file for /etc/ansible/roles/weblogic
+
+- import_tasks: create_users.yml
+- import_tasks: update_users_profile.yml
+- import_tasks: copy_files.yml
+- import_tasks: install_standard_scripts.yml
+- import_tasks: install_jdk.yml
+- import_tasks: install_weblogic.yml
+- import_tasks: patch_weblogic.yml
+- import_tasks: create_domain.yml
+- import_tasks: setup_auto_restart-rhel7.yml
+  when: hostvars[inventory_hostname].ansible_distribution_major_version >= "7"
+- import_tasks: setup_auto_restart-rhel6.yml
+  when: hostvars[inventory_hostname].ansible_distribution_major_version <= "6"

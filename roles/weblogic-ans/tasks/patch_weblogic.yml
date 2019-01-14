@@ -1,0 +1,149 @@
+---
+
+    - name: CHECK if weblogic12213 path exists.
+      stat: "path={{ wls_root }}/oraInst.loc"
+      register: weblogic12213
+
+    - name: UNZIP opatch update files.    
+      unarchive:
+        src: "{{ remote_files }}/p28186730_139400_Generic.zip"
+        dest: "{{ remote_files }}/PATCH_TOP/"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+        directory_mode: 0755
+      when: weblogic12213.stat.exists == true
+
+    - name: UNZIP patch files.    
+      unarchive:
+        src: "{{ remote_files }}/{{ patch_ver }}_Generic.zip"
+        dest: "{{ remote_files }}/PATCH_TOP/"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+        directory_mode: 0755
+      when: weblogic12213.stat.exists == true
+
+    - name: BACKUP DemoTrust.jks BEFORE patching.
+      copy:
+        src: "{{ wls_lib }}/DemoTrust.jks"
+        dest: "{{ wls_lib }}/DemoTrust.jks.{{ patch_ver }}"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+      when: weblogic12213.stat.exists == true
+
+    - name: "RUN opatch update as {{ admin_user }}."
+      command: "su - {{ admin_user }} -c '{{ remote_files }}/updateopatch.sh'"
+      args:
+        chdir: "{{ remote_files }}/"
+      when: weblogic12213.stat.exists == true
+
+    - name: "RUN weblogic patch as {{ admin_user }}."
+      command: "su - {{ admin_user }} -c '{{ remote_files }}/startpatch.sh'"
+      args:
+        chdir: "{{ remote_files }}/"
+      when: weblogic12213.stat.exists == true
+
+    - name: COPY DemoTrust.jks with LDAP certs to server AFTER patching, since patch overwrites it.
+      copy:
+        src: "{{ remote_files }}/DemoTrust.jks"
+        dest: "{{ wls_lib }}"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+      when: weblogic12213.stat.exists == true
+
+    - name: "BACKUP {{ file_name }} to *.{{ jdk_ver }}.backup."
+      command: "su - {{ admin_user }} -c 'cp {{ file_name }}{,.{{ jdk_ver }}.backup}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/setProperty.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "CHANGE string java/{{ jdk_ver }} to mwe/jdk8 in {{ file_name }}."
+      command: "su - {{ admin_user }} -c 'sed -i ''s@java/{{ jdk_ver }}@mwe/jdk8@g'' {{ file_name }}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/setProperty.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "BACKUP {{ file_name }} to *.{{ jdk_ver }}.backup."
+      command: "su - {{ admin_user }} -c 'cp {{ file_name }}{,.{{ jdk_ver }}.backup}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/compareInventory.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "CHANGE string java/{{ jdk_ver }} to mwe/jdk8 in {{ file_name }}."
+      command: "su - {{ admin_user }} -c 'sed -i ''s@java/{{ jdk_ver }}@mwe/jdk8@g'' {{ file_name }}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/compareInventory.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "BACKUP {{ file_name }} to *.{{ jdk_ver }}.backup."
+      command: "su - {{ admin_user }} -c 'cp {{ file_name }}{,.{{ jdk_ver }}.backup}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/viewInventory.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "CHANGE string java/{{ jdk_ver }} to mwe/jdk8 in {{ file_name }}."
+      command: "su - {{ admin_user }} -c 'sed -i ''s@java/{{ jdk_ver }}@mwe/jdk8@g'' {{ file_name }}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/viewInventory.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "BACKUP {{ file_name }} to *.{{ jdk_ver }}.backup."
+      command: "su - {{ admin_user }} -c 'cp {{ file_name }}{,.{{ jdk_ver }}.backup}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/launch.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "CHANGE string java/{{ jdk_ver }} to mwe/jdk8 in {{ file_name }}."
+      command: "su - {{ admin_user }} -c 'sed -i ''s@java/{{ jdk_ver }}@mwe/jdk8@g'' {{ file_name }}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/bin/launch.sh
+      when: weblogic12213.stat.exists == true
+
+    - name: "BACKUP {{ file_name }} to *.{{ jdk_ver }}.backup."
+      command: "su - {{ admin_user }} -c 'cp {{ file_name }}{,.{{ jdk_ver }}.backup}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/.globalEnv.properties
+      when: weblogic12213.stat.exists == true
+
+    - name: "CHANGE string java/{{ jdk_ver }} to mwe/jdk8 in {{ file_name }}."
+      command: "su - {{ admin_user }} -c 'sed -i ''s@java/{{ jdk_ver }}@mwe/jdk8@g'' {{ file_name }}'"
+      args:
+        chdir: "{{ bin_dir }}"
+        warn: no
+      vars:
+        - file_name: /users/mwe/weblogic12.2.1.3/oui/.globalEnv.properties
+      when: weblogic12213.stat.exists == true

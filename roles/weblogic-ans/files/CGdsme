@@ -1,0 +1,26 @@
+#!/bin/sh
+# CGdsme
+
+#chkconfig: 2345 90 05
+#description: CG Middlware Applications
+
+
+case "$1" in
+'start')
+    echo " Starting processes "
+cd /users/mwe/cgscripts ; nohup su - mwadmin -c /users/mwe/cgscripts/adminstart.sh &
+cd /users/mwe/cgscripts ; nohup su - webapp -c /users/mwe/cgscripts/appstart.sh &
+    touch /var/lock/subsys/CGdsme
+;;
+
+'stop')
+    echo " Stopping processes "
+cd /users/mwe/cgscripts ; nohup su - mwadmin -c /users/mwe/cgscripts/adminstop.sh &
+cd /users/mwe/cgscripts ; nohup su - webapp -c /users/mwe/cgscripts/appstop.sh &
+    rm -f /var/lock/subsys/CGdsme
+;;
+
+*)
+echo "usage: $0 { start | stop }"
+;;
+esac

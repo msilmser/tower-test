@@ -1,0 +1,26 @@
+---
+
+    - name: COPY /etc/init.d/CGdsme1 script.
+      copy:
+        src: "{{ remote_files }}/CGdsme"
+        dest: /etc/init.d/CGdsme1
+        remote_src: yes
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: CREATE link to /etc/init.d/CGdsme1 script.
+      file:
+        src: "/etc/init.d/CGdsme1"
+        dest: "{{ item.dest }}"
+        state: link
+      with_items:
+        - { dest: '/etc/rc0.d/K05CGdsme1' }
+        - { dest: '/etc/rc1.d/K05CGdsme1' }
+        - { dest: '/etc/rc6.d/K05CGdsme1' }
+        - { dest: '/etc/rc2.d/S90CGdsme1' }
+        - { dest: '/etc/rc3.d/S90CGdsme1' }
+        - { dest: '/etc/rc4.d/S90CGdsme1' }
+        - { dest: '/etc/rc5.d/S90CGdsme1' }
+      when: hostvars[inventory_hostname].ansible_distribution_major_version <= "6"
+

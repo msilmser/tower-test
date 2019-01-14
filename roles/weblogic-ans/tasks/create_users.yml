@@ -1,0 +1,83 @@
+---
+
+     - name: ping servers
+       ping: 
+
+     - name: check whether mwadmin user exists in AD 
+       action: shell /usr/bin/adquery user mwadmin | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: mwadmin_user_exist_ad
+
+     - name: check whether mwadmin user exists locally
+       action: shell /usr/bin/getent passwd mwadmin | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: mwadmin_user_exist_local
+
+     - name: check whether mwgrp group exists in AD 
+       action: shell /usr/bin/adquery group mwgrp | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: mwgrp_group_exist_ad
+
+     - name: check whether mwgrp group exists locally 
+       action: shell /usr/bin/getent group mwgrp | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: mwgrp_group_exist_local
+
+     - name: Create mwgrp group if it doesn't exists 
+       group:
+        name: mwgrp
+        gid: 1186
+        state: present
+       when: "mwgrp_group_exist_ad.stdout == '0' and mwgrp_group_exist_local.stdout == '0'"
+
+     - name: Create mwadmin user and add it to mwgrp group
+       user:
+        name: mwadmin
+        uid: 7423
+        group: mwgrp
+        shell: /bin/bash
+        home: /home/mwadmin
+        state: present
+       when: "mwadmin_user_exist_ad.stdout == '0' and mwadmin_user_exist_local.stdout == '0'" 
+
+     - name: check whether webapp user exists in AD
+       action: shell /usr/bin/adquery user webapp | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: webapp_user_exist_ad
+
+     - name: check whether webapp user exists locally
+       action: shell /usr/bin/getent passwd webapp | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: webapp_user_exist_local
+
+     - name: check whether webgrp group exists in AD 
+       action: shell /usr/bin/adquery group webgrp | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: webgrp_group_exist_ad
+
+     - name: check whether webgrp group exists locally 
+       action: shell /usr/bin/getent group webgrp | /usr/bin/wc -l | /usr/bin/tr -d ''
+       register: webgrp_group_exist_local
+
+     - name: Create webgrp group
+       group:
+        name: webgrp
+        gid: 1193
+        state: present
+       when: "webgrp_group_exist_ad.stdout == '0' and webgrp_group_exist_local.stdout == '0'"
+
+     - name: Create webapp user and add it to webgrp group
+       user:
+        name: webapp
+        uid: 4188
+        group: webgrp
+        groups: mwgrp
+        shell: /bin/bash
+        home: /home/webapp
+        state: present
+       when: "webapp_user_exist_ad.stdout == '0'and  webapp_user_exist_local.stdout == '0'"
+
+     - name: read the cron file
+       shell: cat /etc/cron.allow
+       register: user_accts
+
+     - name: Add webapp to cron.allow only if the user doesn't already exist
+       when: user_accts.stdout.find('webapp') == -1
+       shell: /bin/echo webapp >> /etc/cron.allow
+
+     - name: Add mwadmin to cron.allow only if the user doesn't already exist
+       when: user_accts.stdout.find('mwadmin') == -1
+       shell: /bin/echo mwadmin >> /etc/cron.allow

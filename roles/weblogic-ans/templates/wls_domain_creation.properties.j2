@@ -1,0 +1,59 @@
+
+adminServer=w{{ app_id }}_adm
+adminServerListenAddress={{ ansible_hostname }}
+adminServerListenPort=8000
+adminServerSSLPort=8001
+configureDomainFlag=y
+defineDomainFlag=y
+domain=w{{ app_id }}
+hostname={{ ansible_hostname }}
+machine={{ ansible_hostname }}
+machines={{ ansible_hostname }}
+managedServer={{ app_id }}_1
+managedServerListenPort=8050
+managedServerSSLPort=8051
+nodeManagerSSLPort=8002
+userName={{ wls_username }}
+passWord={{ wls_password }}
+productionModeFlag=y
+role_mappings=Admin:Grp({{ admin_group_list }})|Grp({{ zone }}_{{ app_env }}_{{ app_id }}_Admin)|Grp(Administrators);Monitor:Grp({{ zone }}_{{ app_env }}_{{ app_id }}_User)|Grp(Monitors)
+sample_app=hello
+
+{#
+ldap_attributes=GroupBaseDN:<%= dc_string %>;UserBaseDN:<%= dc_string %>\
+;UserNameAttribute:sAMAccountName\
+;Principal:CN=<%= cn %>,OU=<%= app %>,OU=<%= env %>,OU=People,OU=<%= zone %>,<%= dc_string %>\
+;Credential:<%= credential %>\
+;Host:<%= ldap_host %>\
+;UserSearchScope:subtree\
+;GroupSearchScope:subtree\
+;MaxGroupMembershipSearchLevel:3\
+;UserFromNameFilter:(&(sAMAccountName=%u)(objectclass=person))\
+;GroupFromNameFilter:(&(cn=%g)(objectclass=group))\
+;StaticGroupObjectClass:group\
+;StaticMemberDNAttribute:member\
+;StaticGroupDNsfromMemberDNFilter:(&(member=%M)(objectclass=group))
+#}
+
+{#
+<% ad_domain = node['domain'].split('.').first -%>
+<% dc_string = ''
+   node['domain'].split('.').each do |dc|
+     dc_string << ',' unless dc_string.empty?
+     dc_string << "DC=#{dc}"
+     puts dc_string
+   end -%>
+<% ldap_host = node['CG-LNX-weblogic']['ldap_host'] -%>
+<% sample_app = node['CG-LNX-weblogic']['sample_app'] -%>
+<% admin_group_list = node['CG-LNX-weblogic']['admin_group_list'] -%>
+<% app = node['CG']['OMD']['application'] -%>
+<% zone = node['CG']['OMD']['zone'] -%>
+<% env = node['CG']['OMD']['environment'] -%>
+<% env_prefixes = node['CG-LNX-weblogic']['environment_prefixes'] -%>
+## domain name should start with prefix that depends on the environment:
+<% domain_prefix = env_prefixes.fetch(env.downcase, 'w_') -%>
+<% parent_env = node['CG-LNX-weblogic']['parent_env'] -%>
+<% svcacct = ChefVault::Item.load("ITAMsvcaccts_#{zone}_#{env}", app).select { |key, _| !key.to_s.match(/^id$/) }.first -%>
+<% production_mode = node['CG-LNX-weblogic']['production_mode'] -%>
+<% cn, credential = svcacct -%>
+#}

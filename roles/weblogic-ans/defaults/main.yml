@@ -1,0 +1,38 @@
+---
+# defaults file for /etc/ansible/roles/weblogic
+# Needs to be overridden
+ app_id: BB00000042
+ zone: OZ
+ app_env: DEV
+# domain_env: d
+# Needs to be overridden - unmanaged/static
+ wls_username: wlsadmin
+ wls_password: weblogic1
+#
+ java_root: /users/java
+ jdk_ver: jdk1.8.0_192
+ jdk_zip: jdk-8u192-linux-x64.tar.gz
+#
+ remote_files: /users/mwe/tmp/files
+ bin_dir: /users/mwe
+ log_dir: /users/mwe/tmp/logs
+ cgscripts_dir: /users/mwe/cgscripts
+ instance_dir: /users/domains
+#
+ patch_ver: p28298734_122130
+ standard_scripts_archive: cgscripts.zip
+ wls_archive_file: fmw_12.2.1.3.0_wls.jar
+ wls_release: weblogic12.2.1.3
+ wls_root: "{{ bin_dir }}/{{ wls_release }}"
+ wls_logs: "{{ wls_root }}/logs"
+ wls_lib: "{{ wls_root }}/wlserver/server/lib"
+ wls_derby: "{{ wls_root }}/wlserver/common/derby"
+#
+ admin_group_list: mw_admin_group
+#
+ admin_user: mwadmin
+ admin_grp: mwgrp
+ runtime_user: webapp
+ runtime_grp: webgrp
+ java_user: root
+ java_grp: root

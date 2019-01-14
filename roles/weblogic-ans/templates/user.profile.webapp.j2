@@ -1,0 +1,13 @@
+if [[ $- != *c* ]]; then
+ newgrp webgrp
+fi
+
+export ZONE={{ zone }}
+export RHELVER={{ hostvars[inventory_hostname].ansible_distribution_major_version }}
+
+PATH=$PATH:/users/mwe/jdk/bin
+export PATH
+
+export PS1="$(whoami)@($ZONE-$(hostname))"':$PWD $'
+
+cd /users/domains

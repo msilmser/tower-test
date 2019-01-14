@@ -1,0 +1,17 @@
+---
+
+     - name: COPY weblogic.service file to systemd dir
+       copy:
+         src: "{{ remote_files }}/{{ item }}"
+         dest: /etc/systemd/system/
+         remote_src: yes
+         mode: 0755
+       with_items:
+         - [ 'weblogic.service','weblogic-admin.service' ]
+       when: hostvars[inventory_hostname].ansible_distribution_major_version >= "7"
+
+     - name: ENABLE sytemd service for weblogic
+       systemd: state=started name={{ item }} daemon_reload=yes enabled=yes
+       with_items:
+         - [ 'weblogic','weblogic-admin' ]
+       when: hostvars[inventory_hostname].ansible_distribution_major_version >= "7"

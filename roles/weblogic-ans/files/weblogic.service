@@ -1,0 +1,14 @@
+[Unit]
+Description=The service will restart tomcat automatically
+After=network.target multi-user.target
+
+[Service]
+Type=forking
+ExecStart=/users/mwe/cgscripts/appstart.sh
+ExecStop=/users/mwe/cgscripts/appstop.sh
+Restart=on-abort
+User=webapp
+Group=webgrp
+
+[Install]
+WantedBy=multi-user.target

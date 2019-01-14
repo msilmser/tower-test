@@ -1,0 +1,74 @@
+---
+
+    - name: CHECK if weblogic12213 path exists.
+      stat: "path={{ wls_root }}/oraInst.loc"
+      register: weblogic12213
+
+    - name: "CREATE symlink to {{ bin_dir }}/jdk."
+      file:
+        src: "{{ java_root }}/{{ jdk_ver }}"
+        dest: "{{ bin_dir }}/jdk"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        state: link
+      when: weblogic12213.stat.exists == false
+
+    - name: "CREATE symlink to {{ bin_dir }}/jdk8."
+      file:
+        src: "{{ java_root }}/{{ jdk_ver }}"
+        dest: "{{ bin_dir }}/jdk8"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        state: link
+      when: weblogic12213.stat.exists == false
+
+    - name: "RUN weblogic installer script {{ admin_user }}."
+      command: "su - {{ admin_user }} -c '{{ remote_files }}/wls12213install.sh'"
+      args:
+        chdir: "{{ remote_files }}/"
+      when: weblogic12213.stat.exists == false
+
+    - name: CREATE weblogic logs folder if doesnt exist.
+      file:
+        path: "{{ wls_logs }}"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0777
+        state: directory
+      when: weblogic12213.stat.exists == false
+
+    - name: DELETE derby folder to prevent derby detault start up.
+      file:
+        path: "{{ wls_derby }}"
+        state: absent
+      when: weblogic12213.stat.exists == false
+
+    - name: COPY ldapboth.pem to server.
+      copy:
+        src: "{{ remote_files }}/ldapboth.pem"
+        dest: "{{ wls_lib }}"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+      when: weblogic12213.stat.exists == false
+
+    - name: COPY ldaproot.pem to server.
+      copy:
+        src: "{{ remote_files }}/ldaproot.pem"
+        dest: "{{ wls_lib }}"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+      when: weblogic12213.stat.exists == false
+
+    - name: COPY ldapinter.pem to server.
+      copy:
+        src: "{{ remote_files }}/ldapinter.pem"
+        dest: "{{ wls_lib }}"
+        remote_src: yes
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+      when: weblogic12213.stat.exists == false

@@ -1,0 +1,50 @@
+---
+
+# SHOULD BE NEW VM ONLY
+#    - name: run weblogic stop script as webapp to STOP admin/ms.
+#      command: "su - webapp -c '/users/mwe/tmp/files/xappstop.sh;sleep 15'"
+#      args:
+#        chdir: /users/mwe/tmp/files/
+#        warn: no
+
+#    - name: run weblogic stop script as webapp to STOP nm and kill any weblogic orphans.
+#      command: "su - webapp -c '/users/mwe/tmp/files/xnm_stopall.sh;sleep 5'"
+#      args:
+#        chdir: /users/mwe/tmp/files/
+#        warn: no
+
+    - name: "CHECK if {{ java_root }} path exists."
+      stat: "path={{ java_root }}"
+      register: checkjdkroot
+
+    - name: "CREATE {{ java_root }} path if does not exist."
+      file:
+        path: "{{ java_root }}"
+        owner: "{{ java_user }}"
+        group: "{{ java_grp }}"
+        mode: 0755
+        state: directory
+      when: checkjdkroot.stat.exists == false
+
+    - name: "CHECK if jdk {{ jdk_ver }} path exists."
+      stat: "path={{ java_root }}/{{ jdk_ver }}/bin/java"
+      register: checkjdk
+
+    - name: UNZIP jdk files.
+      unarchive:
+        src: "{{ remote_files }}/{{ jdk_zip }}"
+        dest: "{{ java_root }}"
+        remote_src: yes
+        owner: "{{ java_user }}"
+        group: "{{ java_grp }}"
+        mode: 0755
+      when: checkjdk.stat.exists == false
+
+    - name: "CREATE symlink to {{ java_root }}/jdk."
+      file:
+        src: "{{ java_root }}/{{ jdk_ver }}"
+        dest: "{{ java_root }}/jdk"
+        owner: "{{ java_user }}"
+        group: "{{ java_grp }}"
+        state: link
+      when: checkjdk.stat.exists == false

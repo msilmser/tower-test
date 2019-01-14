@@ -1,0 +1,62 @@
+---
+
+    - name: CREATE nohup file if it doesn't exist
+      copy:
+        content: ""
+        dest: "{{ bin_dir }}/nohup.out"
+        force: no
+        group: "{{ admin_grp }}"
+        owner: "{{ admin_user }}"
+        mode: 0755
+
+    - name: CHECK if appstart.sh exists
+      stat: "path={{ bin_dir }}/cgscripts/appstart.sh"
+      register: appstart
+
+    - name: CREATE cgscripts directory
+      file:
+        path: "{{ cgscripts_dir }}"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+        state: directory
+      when: appstart.stat.exists == false
+
+    - name: UNZIP cgscripts directory
+      unarchive:
+        src: "{{ remote_files }}/{{ standard_scripts_archive }}"
+        dest: "{{ bin_dir }}/cgscripts"
+        remote_src: yes		 
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0754
+      when: appstart.stat.exists == false
+
+# Note: Remote copy does not support recursive copy of directory - so copy from local.
+#    - name: COPY cgscripts folder to server
+#      copy:
+#        src: "{{ role_path }}/files/cgscripts/"
+#        dest: "{{ cgscripts_dir }}"
+#        owner: "{{ admin_user }}"
+#        group: "{{ admin_grp }}"
+#        mode: 0754
+#      when: appstart.stat.exists == false
+
+# Note: Find more details about this file and value substitution
+#    - name: copy .cgscripts.profile file to cgscripts folder 
+#      copy:
+#        src: "{{ remote_files }}/.cgscripts.profile"
+#        dest: "{{ bin_dir }}/cgscripts/"
+#        remote_src: yes
+#        owner: "{{ admin_user }}"
+#        group: "{{ admin_grp }}"
+#        mode: 0644
+
+    - name: COPY .cgscripts.profile file to cgscripts folder - used by adminstart.sh
+      template:
+        src: cgscripts.profile.j2
+        dest: "{{ bin_dir }}/cgscripts/.cgscripts.profile"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0644
+      when: appstart.stat.exists == false

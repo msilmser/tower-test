@@ -1,0 +1,49 @@
+---
+
+     - name: "COPY profile file for {{runtime_user}} file."
+       template:
+         src: user.profile.webapp.j2
+         dest: /home/{{runtime_user}}/.profile
+         owner: "{{runtime_user}}"
+         group: "{{runtime_grp}}"
+         mode: 0600
+
+     - name: "COPY profile file for {{admin_user}} file."
+       template:
+         src: user.profile.mwadmin.j2
+         dest: /home/{{admin_user}}/.profile
+         owner: "{{admin_user}}"
+         group: "{{admin_grp}}"
+         mode: 0600
+
+     - name: "COPY bashrc file for {{admin_user}} file."
+       template:
+         src: bashrc.j2
+         dest: /home/{{admin_user}}/.bashrc
+         owner: "{{admin_user}}"
+         group: "{{admin_grp}}"
+         mode: 0600
+
+     - name: "COPY bashrc file for {{runtime_user}} file."
+       template:
+         src: bashrc.j2
+         dest: /home/{{runtime_user}}/.bashrc
+         owner: "{{runtime_user}}"
+         group: "{{runtime_grp}}"
+         mode: 0600
+
+     - name: "COPY bash profile file for {{runtime_user}} file."
+       template:
+         src: bash.profile.webapp.j2
+         dest: /home/{{runtime_user}}/.bash_profile
+         owner: "{{runtime_user}}"
+         group: "{{runtime_grp}}"
+         mode: 0600
+
+     - name: "COPY bash profile file for {{admin_user}} file."
+       template:
+         src: bash.profile.mwadmin.j2
+         dest: /home/{{admin_user}}/.bash_profile
+         owner: "{{admin_user}}"
+         group: "{{admin_grp}}"
+         mode: 0600

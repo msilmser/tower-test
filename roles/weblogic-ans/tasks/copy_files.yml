@@ -1,0 +1,81 @@
+---
+
+#  gather_facts: False
+
+    - name: LIMIT fact gathering to disk mounts only.
+      setup:
+        filter: ansible_mounts
+
+    - name: CHECK if enough disk space available (4GB) before proceeding.
+      assert:
+        that:
+            - item.mount != '/users' or {{ item.mount == '/users' and item.size_available > 4000000000 }}
+      with_items: '{{ ansible_mounts }}'
+      ignore_errors: yes
+      register: disk_space_check
+
+    - name: FAIL server if disk space is low (skipping means ok).
+      fail:
+         msg: 'Failing (bypassing) server, not enough disk space.'
+      when: disk_space_check|failed
+
+    - name: CHECK if mwe dir exists
+      stat: path={{ bin_dir }}
+      register: usersmwe
+
+    - name: CHECK if domains dir exists
+      stat: path={{ instance_dir }}
+      register: usersdmns
+
+    - name: CREATE mwe directory if it doesn't exists and set permissions
+      file:
+        path: "{{ bin_dir }}"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+        state: directory
+      when: usersmwe.stat.exists == false
+
+    - name: CREATE ansible logs directory if it doesn't exists and set permissions
+      file:
+        path: "{{ log_dir }}"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0775
+        state: directory
+
+    - name: CREATE domains directory if it doesn't exists and set permissions
+      file:
+        path: "{{ instance_dir }}"
+        owner: "{{ runtime_user }}"
+        group: "{{ runtime_grp }}"
+        mode: 0755
+        state: directory
+      when: usersdmns.stat.exists == false
+
+    - name: DELETE files folder to start fresh.
+      file:
+        path: "{{ remote_files }}"
+        state: absent
+
+    - name: COPY files to remote server.
+      copy:
+        src: "{{ role_path }}/files/"
+        dest: "{{ remote_files }}"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+        directory_mode: 0755
+
+    - name: COPY NEXUS files to remote server.
+      get_url:
+        url: "https://cgrepo.capgroup.com/repository/cgansible/linux/middleware/weblogic/{{ item }}"
+        dest: "{{ remote_files }}"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0755
+      with_items:
+        - jdk-8u192-linux-x64.tar.gz
+        - fmw_12.2.1.3.0_wls.jar
+        - p28186730_139400_Generic.zip
+        - p28298734_122130_Generic.zip

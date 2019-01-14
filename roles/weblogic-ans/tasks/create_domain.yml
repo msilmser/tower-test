@@ -1,0 +1,68 @@
+---
+
+    - name: "CHECK if w{{ app_id }} path exists."
+      stat: "path={{ instance_dir }}/w{{ app_id }}"
+      register: checkdomain
+
+    - name: INITIALIZE wls_domain_creation.properties
+      template:
+        src: wls_domain_creation.properties.j2
+        dest: "{{ remote_files }}/wls_domain_creation.properties"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0644
+      when: checkdomain.stat.exists == false
+
+    - name: INITIALIZE admin_map.txt
+      template:
+        src: admin_map.j2
+        dest: "{{ cgscripts_dir }}/py/admin_map.txt"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0644
+      when: checkdomain.stat.exists == false
+
+    - name: BACKUP admin_map.txt
+      template:
+        src: admin_map.j2
+        dest: "{{ remote_files }}/admin_map.txt"
+        owner: "{{ admin_user }}"
+        group: "{{ admin_grp }}"
+        mode: 0644
+      when: checkdomain.stat.exists == false
+
+    - name: DELETE ansible logs to start fresh.
+      file:
+        path: "{{item}}"
+        state: absent
+      with_fileglob:
+        - "{{ log_dir }}/*"
+
+    - name: RUN weblogic domain creation script.
+      command: "su - {{ runtime_user }} -c '{{ remote_files }}/createdomain.sh'"
+      args:
+        chdir: "{{ instance_dir }}/"
+      when: checkdomain.stat.exists == false
+
+    - name: RUN weblogic managed server creation script.
+      command: "su - {{ runtime_user }} -c '{{ remote_files }}/createmanaged.sh'"
+      args:
+        chdir: "{{ instance_dir }}/"
+      when: checkdomain.stat.exists == false
+
+    - name: DELETE file wls_domain_creation.properties due to password.
+      file:
+        path: "{{ remote_files }}/wls_domain_creation.properties"
+        state: absent
+
+    - name: Run weblogic stop script as webapp to STOP admin/ms.
+      command: "su - {{ runtime_user }} -c '{{ remote_files }}//xappstop.sh;sleep 15'"
+      args:
+        chdir: "{{ remote_files }}/"
+        warn: no
+
+    - name: Run weblogic stop script as webapp to STOP nm and kill any weblogic orphans.
+      command: "su - {{ runtime_user }} -c '{{ remote_files }}//xnm_stopall.sh;sleep 5'"
+      args:
+        chdir: "{{ remote_files }}/"
+        warn: no

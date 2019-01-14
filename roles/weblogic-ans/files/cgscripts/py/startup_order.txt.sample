@@ -1,0 +1,3 @@
+#This is a sample file, if you want to specify start up order for your weblogic managed servers list the domain name and managed server as listed below; remove this line before using it
+wxx969501 BB000016_INF
+wyx969501 AA00002153_DEV1
