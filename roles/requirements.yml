@@ -1,0 +1,120 @@
+---
+# apache
+- src: git+https://bitbucket.capgroup.com/scm/api/apache.git
+  scm: git
+  version: develop
+
+# cg_agents
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_agents.git
+  scm: git
+  version: develop
+
+# cg_all_cgpython
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_cgpython.git
+  scm: git
+  version: develop
+
+# cg_all_fireeye
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_fireeye.git
+  scm: git
+  version: develop
+
+# cg_all_sccm_agent
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_sccm_agent.git
+  scm: git
+  version: develop
+
+# cg_all_sep
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_sep.git
+  scm: git
+  version: develop
+
+# cg_all_splunkuf
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_splunkuf.git
+  scm: git
+  version: develop
+
+# cg_all_tanium
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_tanium.git
+  scm: git
+  version: develop
+
+# cg_all_usergroups
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_all_usergroups.git
+  scm: git
+  version: develop
+
+# cg_custom_modules
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_custom_modules.git
+  scm: git
+  version: develop
+
+# cg_ora_binary_config
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_ora_binary_config.git
+  scm: git
+  version: develop
+
+# cg_ora_db_creation
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_ora_db_creation.git
+  scm: git
+  version: develop
+
+# cg_ora_server_prereqs
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_ora_server_prereqs.git
+  scm: git
+  version: develop
+
+# cg_os_base
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_os_base.git
+  scm: git
+  version: develop
+
+# cg_role_active_directory
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_active_directory.git
+  scm: git
+  version: develop
+
+# cg_role_azure_provision
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_azure_provision
+  scm: git
+  version: develop
+
+# cg_role_cyberark
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_cyberark.git
+  scm: git
+  version: develop
+
+# cg_role_digital_cyberark_accounts
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_digital_cyberark_accounts.git
+  scm: git
+  version: develop
+
+# cg_role_disk_setup
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_disk_setup.git
+  scm: git
+  version: develop
+
+# cg_role_dns_config
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_dns_config
+  scm: git
+  version: develop
+
+# cg_role_gen_hostname
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_role_gen_hostname.git
+  scm: git
+  version: develop
+
+# cg_win_os_base
+- src: git+https://bitbucket.capgroup.com/scm/cauto/cg_win_os_base.git
+  scm: git
+  version: develop
+
+# tcServer
+- src: git+https://bitbucket.capgroup.com/scm/api/tcserver.git
+  scm: git
+  version: develop
+
+# weblogic-ans
+- src: git+https://bitbucket.capgroup.com/scm/api/weblogic-ans.git
+  scm: git
+  version: develop
