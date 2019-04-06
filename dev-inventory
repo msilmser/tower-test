@@ -1,0 +1,192 @@
+#Dev Hosts
+
+#Vars Section
+[all:vars]
+ansible_ssh_extra_args="-o PubkeyAuthentication=no -o PasswordAuthentication=yes -o PreferredAuthentications=password"
+nessus_user={{ dev_nessus_user }}
+nessus_key={{ dev_nessus_key }}
+rhel_subscription_manager_org_id=ASB-SSO
+
+[ldap:vars]
+ansible_ssh_user={{ dev_ldap_user }}
+ansible_ssh_pass={{ dev_ldap_pass }}
+
+[sso:vars]
+ansible_ssh_user={{ dev_sso_user }}
+ansible_ssh_pass={{ dev_sso_pass }}
+ansible_become_pass={{ dev_sso_become_pass }}
+ansible_become_method="su"
+
+[sso-legacy:vars]
+ansible_ssh_user={{ dev_sso_user }}
+ansible_ssh_pass={{ dev_sso_pass }}
+ansible_ssh_extra_args="-o HostKeyAlgorithms=ssh-dss -o PasswordAuthentication=yes -o PubkeyAuthentication=no -o PreferredAuthentications=password"
+
+[ssov2:vars]
+ansible_ssh_user={{ dev_ssov2_user }}
+ansible_ssh_pass={{ dev_ssov2_pass }}
+ansible_become_pass={{ dev_ssov2_become_pass }}
+rhel_subscription_manager_activation_key=SSO-DEV
+
+[tdiv2:vars]
+ansible_ssh_user={{ dev_tdiv2_user }}
+ansible_ssh_pass={{ dev_tdiv2_pass }}
+ansible_become_pass={{ dev_tdiv2_become_pass }}
+rhel_subscription_manager_activation_key=SSO-DEV
+
+[vssv2:vars]
+ansible_ssh_user={{ dev_vssv2_user }}
+ansible_ssh_pass={{ dev_vssv2_pass }}
+ansible_become_pass={{ dev_vssv2_become_pass }}
+rhel_subscription_manager_activation_key=SSO-DEV
+
+[sol10:vars]
+ansible_python_interpreter=/opt/csw/bin/python
+
+[ldap:children]
+ds
+proxy
+#prfsdsm
+
+#LDAP
+#[prfsdsm]
+#prfdsm1		ansible_host=172.29.23.133
+#prfdsm2		ansible_host=172.29.23.134
+
+[ds]
+devldapds1		ansible_host=172.16.123.17	#ansible_ssh_user=ansible
+devldapds2  	ansible_host=172.16.123.18
+devldapds3  	ansible_host=172.16.123.23
+devldapds4  	ansible_host=172.16.123.24
+
+[proxy]
+devldapproxy1	ansible_host=10.110.4.212
+devldapproxy2	ansible_host=10.110.4.213
+
+#SSO
+[sso:children]
+sso-proxy
+sso-policy
+vss
+sso-legacy
+
+[sso-legacy:children]
+sso-policy-fiscal
+
+[sso-proxy:children]
+sso-proxy-treas
+
+[sso-policy:children]
+sso-policy-treas
+
+[sso-proxy-treas]
+ssopacpx101			ansible_host=10.110.0.107
+ssopacpx201			ansible_host=10.110.0.110
+ssopacpx202			ansible_host=10.110.0.148
+
+[sso-policy-treas]
+ssopacps101			ansible_host=10.110.0.108
+ssopacps201			ansible_host=10.110.0.109
+
+[sso-policy-fiscal]
+pkbppsr32			ansible_host=10.67.196.20
+pkbppsr34			ansible_host=10.67.196.22
+pkbppsr35			ansible_host=10.67.196.23
+pkbdfsr32			ansible_host=10.67.204.13
+pkbdfsr33			ansible_host=10.67.204.14
+
+[vss]
+vssapi-p-ac101 		ansible_host=10.110.0.134
+vssapi-k-ac101 		ansible_host=10.114.0.134
+vssapikdv101 		ansible_host=10.114.0.140
+
+[sol10]
+#prfdsm1		ansible_host=172.29.23.133
+#prfdsm2		ansible_host=172.29.23.134
+ssopacps101			ansible_host=10.110.0.108
+ssopacpx101			ansible_host=10.110.0.107
+ssopacps201			ansible_host=10.110.0.109
+ssopacpx201			ansible_host=10.110.0.110
+ssopacpx202			ansible_host=10.110.0.148
+vssapi-p-ac101
+vssapi-k-ac101
+vssapikdv101
+pkbppsr32
+pkbppsr34
+pkbppsr35
+pkbdfsr32
+pkbdfsr33
+
+[ssov2:children]
+ssov2-policy
+ssov2-proxy
+
+[ssov2-admin-policy:children]
+ssov2-policy-tic
+
+[ssov2-policy:children]
+ssov2-policy-tic
+ssov2-policy-perimeter
+
+[ssov2-policy-tic]
+# CAIA Development
+sso-dv-psc-k11  ansible_host=10.114.0.197
+sso-dv-psc-p11  ansible_host=10.110.0.152
+# Fiscal Development
+sso-dv-psf-k11  ansible_host=10.114.0.196
+sso-dv-psf-p11  ansible_host=10.110.0.141
+# Treasury Development
+sso-dv-pst-k11  ansible_host=10.114.0.195
+sso-dv-pst-p11  ansible_host=10.110.0.139
+
+[ssov2-policy-perimeter]
+# CAIA Development
+sso-dv-psc-k01  ansible_host=10.69.196.92	vlan=\"kc_2100\"
+sso-dv-psc-p01  ansible_host=10.67.196.92	vlan=\"pkb_2100\"
+# Fiscal Development
+sso-dv-psf-k01  ansible_host=10.69.196.91	vlan=\"kc_2100\"
+sso-dv-psf-p01  ansible_host=10.67.196.91	vlan=\"pkb_2100\"
+# Treasury Development
+sso-dv-pst-k01  ansible_host=10.69.196.90	vlan=\"kc_2100\"
+sso-dv-pst-p01  ansible_host=10.67.196.90	vlan=\"pkb_2100\"
+
+[ssov2-proxy]
+# CAIA Development
+sso-dv-pxc-k11  ansible_host=10.114.0.194
+sso-dv-pxc-p11  ansible_host=10.110.0.151
+# Fiscal Development
+sso-dv-pxf-k11  ansible_host=10.114.0.193
+sso-dv-pxf-p11  ansible_host=10.110.0.153
+# Treasury Development
+sso-dv-pxt-k11  ansible_host=10.114.0.192
+sso-dv-pxt-p11  ansible_host=10.110.0.132
+
+#TDI
+[tdiv2:children]
+cassv2
+batchv2
+soapwsv2
+devVirtv2
+
+[cassv2]
+tdi-dv-cass-p11		ansible_host=10.110.0.37
+
+[batchv2]
+tdi-dv-batch-p11	ansible_host=10.110.0.38
+
+[soapwsv2]
+tdi-dv-soap-p11   ansible_host=10.110.0.39
+
+[devVirtv2]
+
+[vssv2:children]
+vssv2va
+vssv2rs
+
+[vssv2va]
+vss-dv-va-p01		ansible_host=10.67.196.68	vlan=\"pkb_2100\"
+vss-dv-va-p02		ansible_host=10.67.196.69	vlan=\"pkb_2100\"
+
+[vssv2rs]
+vss-dv-rs-p11		ansible_host=10.110.0.26
+vss-dv-rs-p12		ansible_host=10.110.0.27
