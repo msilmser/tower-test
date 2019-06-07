@@ -1,4 +1,4 @@
-- name: Hello World Sample
+- name: Hello World Samplei 
   hosts: all
   tasks:
     - name: Hello Message
@@ -6,4 +6,4 @@
         msg: "Hello World!"
     - name: Extended pause
       pause:
-        minutes: 5
+        minutes: 36000
