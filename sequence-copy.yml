@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+    - copy:
+        content: |
+          {% set seqnum = 10 %}
+          {% for myitem in myitems %}This is seqnum {{ seqnum }}
+          {% set seqnum = seqnum + 10 %}
+          {% endfor %}
+        dest: "/tmp/testfile.txt"
+      vars:
+        myitems: [1, 2, 3, 4, 5]
