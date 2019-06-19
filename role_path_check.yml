@@ -1,5 +1,7 @@
 ---
-- hosts: all
+- name: Role Path Check
+  hosts: all
+  
   tasks:
     - name: cat that text
       shell: cat "{{ role_path }}"/files/temp.txt
