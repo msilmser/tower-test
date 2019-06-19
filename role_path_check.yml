@@ -1,5 +1,5 @@
 ---
-hosts: all
-tasks:
-  - name: cat that text
-    shell: cat "{{ role_path }}"/files/temp.txt
+- hosts: all
+  tasks:
+    - name: cat that text
+      shell: cat "{{ role_path }}"/files/temp.txt
