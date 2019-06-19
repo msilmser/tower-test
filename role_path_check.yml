@@ -4,4 +4,4 @@
   
   tasks:
     - name: cat that text
-      shell: cat "{{ role_path }}/files/temp.txt"
+      shell: cat "/var/lib/awx/projects/_7__mikes_tests/roles/files/temp.txt"
