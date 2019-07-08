@@ -2,4 +2,4 @@
   hosts: windows
   gather_facts: no
   roles:
-  - jborean93.win_openssh
+  - ansible-role-win_openssh-master
