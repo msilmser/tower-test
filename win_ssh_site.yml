@@ -1,0 +1,5 @@
+- name: install Win32-OpenSSH with the defaults
+  hosts: windows
+  gather_facts: no
+  roles:
+  - jborean93.win_openssh
