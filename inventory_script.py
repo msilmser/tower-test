@@ -36,8 +36,6 @@ data = {
   }, 
   "group2": {
     "hosts": [  
-      "host_in_group1_1", 
-      "host_in_group2_1", 
       "host_in_group3_1", 
       "host_in_group4_1", 
       "host_in_group5_1"
