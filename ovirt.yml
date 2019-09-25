@@ -1,0 +1,16 @@
+# Sample content of ovirt.yml
+plugin: ovirt
+#ovirt_url: https://lab-rhevm-2.gsslab.rdu2.redhat.com/ovirt-engine/api
+#ovirt_username: ansible-tester
+#ovirt_password: secure
+ovirt_query_filter:
+  search: 'name=myvm AND cluster=mycluster'
+  case_sensitive: no
+  max: 15
+keyed_groups:
+  - key: cluster
+    prefix: 'cluster'
+groups:
+  dev: "'dev' in tags"
+compose:
+  ansible_host: devices["eth0"][0]
