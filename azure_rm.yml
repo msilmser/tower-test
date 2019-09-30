@@ -1,9 +1,10 @@
 ---
 conditional_groups:
   azure: true
-default_host_filters:
-- tags.peanutbutter = jelly
-exclude_host_filters: []
+default_host_filters: []
+#- tags.peanutbutter = jelly
+exclude_host_filters: 
+- tags.Creator != 'mperz'
 fail_on_template_errors: false
 include_vm_resource_groups:
 - mperz
