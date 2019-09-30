@@ -4,7 +4,7 @@ conditional_groups:
 default_host_filters: []
 #- tags.peanutbutter = jelly
 exclude_host_filters: 
-- tags.Creator != 'mperz'
+- tags.peanutbutter != 'jelly'
 fail_on_template_errors: false
 include_vm_resource_groups:
 - mperz
