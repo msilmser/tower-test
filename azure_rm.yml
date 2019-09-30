@@ -3,7 +3,7 @@ conditional_groups:
   azure: true
 default_host_filters: []
 exclude_host_filters: 
-- tags.Creator!='jmarshall'
+- tags.Creator not like 'jmarshall'
 fail_on_template_errors: false
 include_vm_resource_groups:
 - mperz
