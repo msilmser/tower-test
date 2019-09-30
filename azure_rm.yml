@@ -2,7 +2,8 @@
 conditional_groups:
   azure: true
 default_host_filters:
-- tags.Creator != mperz
+- tags:
+    peanutbutter: jelly
 exclude_host_filters:
 - resource_group not in ['foo_resources', 'bar_resources']
 - location not in ['southcentralus', 'westus']
