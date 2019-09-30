@@ -2,11 +2,8 @@
 conditional_groups:
   azure: true
 default_host_filters:
-- tags:
-    peanutbutter: jelly
-exclude_host_filters:
-- resource_group not in ['foo_resources', 'bar_resources']
-- location not in ['southcentralus', 'westus']
+- tags.peanutbutter: jelly
+exclude_host_filters: []
 fail_on_template_errors: false
 hostvar_expressions:
   ansible_host: private_ipv4_addresses[0]
