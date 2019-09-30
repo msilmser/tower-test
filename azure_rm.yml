@@ -5,6 +5,8 @@ default_host_filters:
 - tags.peanutbutter: jelly
 exclude_host_filters: []
 fail_on_template_errors: false
+include_vm_resource_groups:
+- mperz
 hostvar_expressions:
   ansible_host: private_ipv4_addresses[0]
   computer_name: name
