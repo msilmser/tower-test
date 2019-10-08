@@ -14,13 +14,6 @@
 			"managed_name": "[{\"cluster_name\": \"XPIDemoCluster\", \"num_servers\": \"2\", \"name\": \"server1\", \"ports\": \"20300,20700\"}]"
 		}
 	},
-	"rhel": {
-		"hosts": ["52.36.252.43", "54.68.187.138"],
-		"vars": {
-			"ansible_user": "ec2-user"
-		}
-
-	},
 	"_meta": {
 		"hostvars": {}
 
