@@ -28,11 +28,9 @@
 		}
 	},
 	"other-group": {
-		"sub-group": {
-			"hosts": ["52.89.117.209", "54.71.92.204"],
-			"vars": {
-				"ansible_user": "ubuntu"
-			}
+		"hosts": ["52.89.117.209", "54.71.92.204"],
+		"vars": {
+			"ansible_user": "ubuntu"
 		}	
 	},
 	"another-one": {
