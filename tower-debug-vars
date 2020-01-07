@@ -1,0 +1,7 @@
+---
+- name: Check Condition
+  hosts: localhost
+  tasks:
+    - name: get Inventory id
+      debug:
+        var: tower_inventory_name
