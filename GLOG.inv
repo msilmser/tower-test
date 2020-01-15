@@ -1,0 +1,12 @@
+sbsa-vlsp-gles-01 ansible_host=sbsa-vlsp-gles-01.ABC.DEF
+
+
+############
+### PROD ###
+############
+
+[GLOGPRD_ES]
+sbsa-vlsp-gles-01
+
+[GLOGPRD:children]
+GLOGPRD_ES
