@@ -1,3 +1,4 @@
 ---
 
 cic_test_host_var: "host_var_test"
+cic_test_host_var_2: "modified"
