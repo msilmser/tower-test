@@ -8,3 +8,8 @@
     set_stats:
       data:
         integration_results_url:  "{{ (result.stdout|from_json).link }}"
+        
+  - name: "Debug the Stat"
+    debug:
+      var: integration_results_url
+    ignore_errors: true
