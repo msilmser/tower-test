@@ -17,4 +17,4 @@
   
   - name: "Debug again"
     debug:
-      msg: "{{ hostvars[inventory_hostname][url.ansible_stats] }}"
+      msg: "{{ hostvars }}"
