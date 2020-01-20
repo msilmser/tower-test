@@ -8,7 +8,7 @@
     set_stats:
       data:
         integration_results_url:  "{{ (result.stdout|from_json).link }}"
-      register: url
+    register: url
         
   - name: "Debug the Stat"
     debug:
