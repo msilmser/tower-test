@@ -17,4 +17,4 @@
   
   - name: "Debug again"
     debug:
-      msg: "{{ hostvars }}"
+      msg: "{{ hostvars.localhost.url.data }}"
