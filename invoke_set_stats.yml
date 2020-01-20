@@ -16,5 +16,5 @@
     ignore_errors: true
   
   - name: "Debug again"
-  - debug:
+    debug:
       msg: "{{ hostvars[inventory_hostname][url.ansible_stats.data] }}"
