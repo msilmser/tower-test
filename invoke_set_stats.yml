@@ -17,4 +17,4 @@
   
   - name: "Debug again"
     debug:
-      msg: "{{ hostvars.localhost.url }}"
+      msg: "{{ hostvars.localhost.url.ansible_stats.data }}"
