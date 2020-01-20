@@ -8,8 +8,13 @@
     set_stats:
       data:
         integration_results_url:  "{{ (result.stdout|from_json).link }}"
+      register: url
         
   - name: "Debug the Stat"
     debug:
       var: integration_results_url
     ignore_errors: true
+  
+  - name: "Debug again"
+  - debug:
+      msg: "{{ hostvars[inventory_hostname][url.ansible_stats.data] }}"
