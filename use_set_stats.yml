@@ -1,0 +1,17 @@
+- hosts: localhost
+  tasks:
+  
+  - name: "Debug the stat"
+    debug:
+      msg: "{{ integration_results_url }}"
+  
+  - name: "Get test results from the web"
+    uri:
+      url: "{{ integration_results_url }}"
+      return_content: true
+    register: results
+
+
+  - name: "Output test results"
+    debug:
+      msg: "{{ results.content }}"
