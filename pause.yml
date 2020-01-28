@@ -1,0 +1,10 @@
+- name: Hello World Sample with Pause
+  hosts: all
+  tasks:
+    - name: Hello Message
+      debug:
+        msg: "Hello World! - Revised"
+        
+    - name: Long Pause
+      pause:
+        minutes: 10
