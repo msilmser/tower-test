@@ -1,8 +1,8 @@
 ---
-hosts: all
-tasks: 
-  name: Print Python version
-  shell: python --version
+- hosts: all
+  tasks: 
+    - name: Print Python version
+      shell: python --version
   
-  name: Print Ansible version
-  shell: ansible --version
+    - name: Print Ansible version
+      shell: ansible --version
