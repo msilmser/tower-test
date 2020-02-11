@@ -8,11 +8,13 @@
 
     - name: testing lookups
       debug:
-        msg: {{ lookup('env','username') }}
+        msg: "{{ lookup('env','username') }}"
              
     - debug:
-        msg: {{ lookup('env','ansible_user') }}
+        msg: "{{ lookup('env','ansible_user') }}"
 
     - debug:
-        msg: {{ lookup('env','ansible_password') }}
+        msg: "{{ lookup('env','ansible_password') }}"
         
+    - debug:
+        msg: "{{ ansible_user }}"
