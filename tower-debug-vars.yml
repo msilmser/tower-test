@@ -8,7 +8,7 @@
 
     - name: testing lookups
       debug:
-        msg: "{{ lookup("env", "username") 
+        msg: "{{ lookup("env", "username")"
              
       debug:
         msg: "{{ lookup("env", "ansible_user") }}"
