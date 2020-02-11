@@ -5,3 +5,14 @@
     - name: get Inventory id
       debug:
         var: tower_inventory_name
+
+    - name: testing lookups
+      debug:
+        msg: "{{ lookup("env", "username") 
+             
+      debug:
+        msg: "{{ lookup("env", "ansible_user") }}"
+
+      debug:
+        msg: "{{ lookup("env", "ansible_password") }}"        
+        
