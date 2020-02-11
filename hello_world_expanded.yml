@@ -1,9 +1,9 @@
 - name: Hello World Sample
 #  hosts: dss:&dc2
-  hosts: localhost
-#  gather_facts: no
+  hosts: all
+  gather_facts: no
   ignore_unreachable: yes
-  gather_timeout: 1
+#  gather_timeout: 1
   
   vars:
     epic: true
