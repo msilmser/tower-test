@@ -10,9 +10,9 @@
       debug:
         msg: "{{ lookup('env','username') }}"
              
-      debug:
+    - debug:
         msg: "{{ lookup('env','ansible_user') }}"
 
-      debug:
+    - debug:
         msg: "{{ lookup('env','ansible_password') }}"        
         
