@@ -14,7 +14,7 @@
   - name: copy
     copy:
       src: /var/lib/awx/file.txt
-      dest: /etc/foo.conf
+      dest: ~/foo.conf
       mode: '0644'
       
   - name: file
