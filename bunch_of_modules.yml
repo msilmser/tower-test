@@ -1,0 +1,23 @@
+---
+- name: bunch of modules!
+  hosts: all
+  gather_facts: no
+  tasks:
+  
+  - name: setup
+    setup:
+    
+  - name: stat
+    stat:
+      path: /var/lib/awx/file.txt
+      
+  - name: copy
+    copy:
+      src: /var/lib/awx/file.txt
+      dest: /etc/foo.conf
+      mode: '0644'
+      
+  - name: file
+    file:
+      state: touch
+      path: /var/lib/awx/file2.txt
