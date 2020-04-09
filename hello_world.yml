@@ -1,6 +1,6 @@
 - name: Hello World Sample
   hosts: all
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: Hello Message
       debug:
