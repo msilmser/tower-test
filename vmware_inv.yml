@@ -1,0 +1,10 @@
+plugin: vmware_vm_inventory
+strict: False
+hostname: vmware.pnq.cee.redhat.com
+username: satadmin@vsphere.local
+password: Access@gis1
+validate_certs: False
+with_tags: True
+properties:
+ - 'name'
+ - 'guest.ipAddress'
