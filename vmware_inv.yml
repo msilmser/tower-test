@@ -3,6 +3,3 @@ strict: False
 hostname: vmware.pnq.cee.redhat.com
 validate_certs: False
 with_tags: True
-properties:
- - 'name'
- - 'guest.ipAddress'
