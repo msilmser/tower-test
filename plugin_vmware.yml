@@ -1,5 +1,6 @@
 plugin: vmware_vm_inventory
 strict: False
 hostname: http://vmware.pnq.cee.redhat.com
+port: 80
 validate_certs: False
 with_tags: True
