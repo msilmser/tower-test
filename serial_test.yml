@@ -31,7 +31,7 @@
 - name: Print Messages 3
   hosts: "{{ ansible_play_hosts[6:8] }}"
   become: true
-  gather_facts: falseignore_errors: true
+  gather_facts: false
   
   tasks:
     - name: third group 7 8 9
