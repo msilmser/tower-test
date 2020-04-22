@@ -1,8 +1,8 @@
 - name: Hello World Sample
   hosts: all
   gather_facts: no
-  serial: "{{ ansible_play_hosts[0:3] }}"
   tasks:
     - name: Hello Message
       debug:
         msg: "Hello World!"
+      loop: "{{ ansible_play_hosts[0:3] }}"
