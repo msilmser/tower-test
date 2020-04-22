@@ -1,6 +1,6 @@
 ---
 - name: debug all first
-  hosts: all
+  hosts: localhost
   gather_facts: false
   
   tasks:
