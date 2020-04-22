@@ -1,6 +1,7 @@
 - name: Hello World Sample
   hosts: all
   gather_facts: no
+  serial: 4
   tasks:
     - name: Hello Message
       debug:
