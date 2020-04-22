@@ -1,4 +1,12 @@
 ---    
+- name: Print all hosts
+  hosts: all
+  gather_facts: false
+  
+  tasks:
+    - debug:
+        var: ansible_play_hosts
+  
 - name: Print Messages 1
   hosts: "{{ ansible_play_hosts[0:2] }}"
   become: true
