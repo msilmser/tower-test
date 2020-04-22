@@ -10,7 +10,7 @@
       ignore_unreachable: true
 
 - name: Print Messages 2
-  hosts: "{{ ansible_play_hosts[3:3] }}"
+  hosts: "{{ ansible_play_hosts[3:6] }}"
   become: true
   gather_facts: false
   
@@ -21,7 +21,7 @@
 
 
 - name: Print Messages 3
-  hosts: "{{ ansible_play_hosts[6:3] }}"
+  hosts: "{{ ansible_play_hosts[6:9] }}"
   become: true
   gather_facts: false
   
@@ -31,7 +31,7 @@
       ignore_unreachable: true
       
 - name: Print Messages 4
-  hosts: "{{ ansible_play_hosts[9:3] }}"
+  hosts: "{{ ansible_play_hosts[9:11] }}"
   become: true
   gather_facts: false
   
