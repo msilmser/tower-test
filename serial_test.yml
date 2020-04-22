@@ -3,10 +3,11 @@
   hosts: "{{ ansible_play_hosts[0:2] }}"
   become: true
   gather_facts: false
+  ignore_errors: true
   
   tasks:
     - name: first group 1 2 3
-      debug:
+      ping:
         msg: "Hello"
 
 - name: Print Messages 2
@@ -16,7 +17,7 @@
   
   tasks:
     - name: second group 4 5 6
-      debug:
+      ping:
         msg: "Hello"
 
 - name: Print Messages 3
@@ -26,7 +27,7 @@
   
   tasks:
     - name: third group 7 8 9
-      debug:
+      ping:
         msg: "Hello"
       
 - name: Print Messages 4
@@ -36,5 +37,5 @@
   
   tasks:
     - name: fourth group 10 11 12
-      debug:
+      ping:
         msg: "Hello"
