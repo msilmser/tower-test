@@ -3,4 +3,4 @@
   tasks:
   
   - include_role:
-      name: geerlingguy.java
+      name: nginx_role
