@@ -4,5 +4,5 @@
   tasks:
     - name: Hello Message
       debug:
-        msg: "Hello World!"
-      loop: "{{ ansible_play_hosts[0:3] }}"
+        msg: "Hello {{ foo }}!"
+
