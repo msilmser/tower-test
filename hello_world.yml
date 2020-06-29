@@ -4,5 +4,14 @@
   tasks:
     - name: Hello Message
       debug:
-        msg: "Hello {{ foo }}!"
+        msg: "Hello World!"
+      tags: test
 
+    - name: Hello Message
+      debug:
+        msg: "Don't print me!"
+        
+    - name: Hello Message
+      debug:
+        msg: "Print me!"
+      tags: test
