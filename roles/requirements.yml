@@ -1,3 +1,6 @@
 ---
 - name: nginx_role
   src: https://github.com/bennojoy/nginx
+
+- name: callback_role
+  src: https://github.com/msilmser/callback_role.git
