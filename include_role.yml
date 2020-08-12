@@ -4,3 +4,6 @@
   
   - include_role:
       name: nginx_role
+      
+  - include_role:
+      name: callback_role
