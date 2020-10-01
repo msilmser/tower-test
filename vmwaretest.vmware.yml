@@ -1,7 +1,7 @@
 plugin: vmware_vm_inventory
 strict: False
-hostname: vmware.pnq.cee.redhat.com	
-username: satadmin@vsphlocalere.local
+hostname: vmware.sat6.gsslab.pnq.redhat.com
+username: administrator
 password: RedHat1!
 validate_certs: False
 with_tags: True
