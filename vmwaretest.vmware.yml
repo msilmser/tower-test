@@ -5,3 +5,10 @@ username: satadmin@gsslab.pnq2.redhat.com
 password: RedHat1!
 validate_certs: False
 with_tags: True
+hostnames:
+- 'config.name'
+properties:
+- 'config.name'
+- 'config.guestId'
+- 'guest.ipAddress'
+- 'summary.runtime.powerState'
