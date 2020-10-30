@@ -1,6 +1,6 @@
 ---
 - name: Check Condition
-  hosts: localhost
+  hosts: all
   tasks:
     - name: get Inventory id
       debug:
