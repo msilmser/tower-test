@@ -5,6 +5,10 @@
     - name: get Inventory id
       debug:
         var: tower_inventory_name
+        
+    - name:
+      debug:
+        var: epic
 
     - name: testing lookups
       debug:
