@@ -1,6 +1,7 @@
 ---
 - name: Check Condition
   hosts: all
+  gather_facts: no
   tasks:
     - name: get Inventory id
       debug:
