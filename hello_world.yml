@@ -15,8 +15,3 @@
       debug:
         msg: "Print me!"
       tags: test
-
-    - name: push it test
-      debug:
-        msg: "Push me"
-
