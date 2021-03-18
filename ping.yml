@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  tasks:
+  - ping:
+
+  - debug:
+      var: ansible_facts
+
+  - debug:
+      var: ansible_facts.hostname
+
+  - debug:
+      var: ansible_facts.ansible_hostname
