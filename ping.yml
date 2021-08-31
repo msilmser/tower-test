@@ -11,3 +11,6 @@
 
   - debug:
       var: ansible_facts.ansible_hostname
+
+  - debug:
+      var: a
