@@ -1,6 +1,6 @@
 ---
 - name: test role module
-  hosts: 127.0.0.1
+  hosts: all
 
   tasks:
     - name: add workflow approve role
