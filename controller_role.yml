@@ -5,9 +5,9 @@
   tasks:
     - name: add workflow approve role
       awx.awx.role:
-        controller_host: https://awx-awx.apps.controller-dev.testing.ansible.com
-        controller_username: admin
-        controller_password: Y53cA6pD9nF8VZtkOnCv7SfcUlIYtDka
+        controller_host: https://test-controller-hsaito-aap2.apps.acm-ansible-ocp-01.cee.ral3.lab.eng.rdu2.redhat.com/
+        controller_username: ansible
+        controller_password: changeme
         user: test
         role: approval
 
