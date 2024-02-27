@@ -1,6 +1,13 @@
 ---
-- name: Update web servers
-  hosts: webservers
-  remote_user: root
+- name: test role module
+  hosts: all
 
   tasks:
+    - name: add workflow approve role
+      awx.awx.role:
+        controller_host: https://awx-awx.apps.controller-dev.testing.ansible.com
+        controller_username: admin
+        controller_password: Y53cA6pD9nF8VZtkOnCv7SfcUlIYtDka
+        user: test
+        role: approval
+
