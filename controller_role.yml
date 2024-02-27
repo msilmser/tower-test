@@ -5,7 +5,7 @@
   tasks:
     - name: add workflow approve role
       awx.awx.role:
-        controller_host: https://test-controller-hsaito-aap2.apps.acm-ansible-ocp-01.cee.ral3.lab.eng.rdu2.redhat.com/
+        controller_host: https://towerhost
         controller_username: ansible
         controller_password: changeme
         user: test
