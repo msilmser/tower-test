@@ -9,6 +9,7 @@
         controller_username: ansible
         controller_password: changeme
         user: test
+        workflows: wftest
         role: approval
         validate_certs: false
 
